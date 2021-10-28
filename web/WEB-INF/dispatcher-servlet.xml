@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+          https://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+            https://www.springframework.org/schema/mvc/spring-mvc.xsd
+             http://www.springframework.org/schema/tx
+              http://www.springframework.org/schema/tx/spring-tx.xsd
+                ">
+<!--        khaibao componennt bean-->
+        <context:component-scan base-package="study, study.controller"/>
+
+<!--    khai bao su dung anotation-->
+        <mvc:annotation-driven/>
+         <context:annotation-config />
+
+<!--    khai baos resource, resource duoc nhan tu web/-->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <bean class = "org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        >
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <bean
+        class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">Error</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="company" class="study.model.Company">
+        <property name="name" value="FPT GREENWICH"/>
+        <property name="address" value="TON THAT THUYET"/>
+        <property name="image" value="/resources/images/logo/chinhtb.jpg"/>
+    </bean>
+
+    <!--    Upload Image-->
+
+    <bean id="multipartResolve"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--            maxUploadSize = 20MB-->
+        <property name="maxUploadSize" value="20971520"/>
+    </bean>
+    <!--    Mail Sender-->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="465"/>
+        <property name="username" value="truongbachinh1998@gmail.com"/>
+        <property name="password" value="pyadtlciwjvdayme"/>
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.socketFactory.port">465</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
+
