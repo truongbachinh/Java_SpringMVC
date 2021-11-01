@@ -4,7 +4,7 @@ package study.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import study.dao.CustomerRepository;
-import study.model.Customer;
+import study.entity.Customer;
 
 import javax.transaction.Transactional;
 import java.util.List;

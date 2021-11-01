@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import study.dao.CustomerRepository;
-import study.model.Customer;
+import study.entity.Customer;
+import study.entity.Product;
 import study.service.CustomerService;
 
 import java.util.ArrayList;
@@ -34,6 +33,33 @@ public class CustomerController {
     @Autowired(required = false)
     private SessionFactory factory;
 
+
+    // Danh sách sản phẩm.
+    @RequestMapping(value = "/lists", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public  List<Product>  getListProduct(ModelMap model) {
+        Session session = factory.openSession();
+        List<Product> list1 = new ArrayList<>();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Product> list = session.createQuery("FROM Customer").list();
+
+            for (Iterator iterator = list.iterator(); iterator.hasNext();){
+                Product customer = (Product) iterator.next();
+
+                list1.add(customer);
+            }
+            tx.commit();
+            model.addAttribute("listCustomer", list1);
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list1;
+    }
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces ="application/json")
     @ResponseBody
     public  List<Customer>  home(ModelMap model) {

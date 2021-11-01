@@ -1,11 +1,9 @@
 package study.dao;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import org.springframework.stereotype.Repository;
-import study.model.Customer;
+import study.entity.Customer;
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 

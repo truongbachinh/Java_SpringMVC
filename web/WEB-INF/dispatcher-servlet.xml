@@ -28,7 +28,7 @@
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
         >
-        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
@@ -42,7 +42,7 @@
         </property>
     </bean>
 
-    <bean id="company" class="study.model.Company">
+    <bean id="company" class="study.entity.Company">
         <property name="name" value="FPT GREENWICH"/>
         <property name="address" value="TON THAT THUYET"/>
         <property name="image" value="/resources/images/logo/chinhtb.jpg"/>
@@ -94,7 +94,7 @@
                 <prop key="hibernate.show_sql"> false</prop>
             </props>
         </property>
-        <property name="packagesToScan" value="study.model"/>
+        <property name="packagesToScan" value="study.entity"/>
     </bean>
 <!--    Transaction maneger-->
     <bean id="transactionManager"
